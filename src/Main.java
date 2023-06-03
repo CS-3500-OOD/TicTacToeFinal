@@ -10,13 +10,18 @@ import java.io.OutputStreamWriter;
 
 public class Main {
 
-    //Configure IO
-    Appendable append = new OutputStreamWriter(System.out);
-    Readable read = new InputStreamReader(System.in);
 
-    //Configure MVC Architecture
-    TicTacToeInteractions model = new TicTacToeModel();
-    DisplayGame view = new TextView(append, model);
-    PlayGame controller = new SimplePlay(view, model, read);
+    public static void main(String[] args){
+        //Configure IO
+        Appendable append = System.out;
+        Readable read = new InputStreamReader(System.in);
+
+        //Configure MVC Architecture
+        TicTacToeInteractions model = new TicTacToeModel();
+        DisplayGame view = new TextView(append, model);
+        PlayGame controller = new SimplePlay(view, model, read);
+
+        controller.playGame();
+    }
 
 }

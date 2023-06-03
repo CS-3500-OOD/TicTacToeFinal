@@ -1,5 +1,5 @@
 package Model;
 
 public enum GameStatus {
-    P1WINS, P2WINS, NoWINNER;
+    P1WINS, P2WINS, NoWINNER, QUIT;
 }

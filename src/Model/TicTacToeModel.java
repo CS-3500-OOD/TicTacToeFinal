@@ -14,11 +14,14 @@ public class TicTacToeModel implements TicTacToeInteractions{
     }
 
 
-
     @Override
     public void placeTile(Coord c, TileType player) {
-      if (!this.isValid(c) || player == null){
-          throw new IllegalArgumentException("Coord is invalid or player is null");
+
+        if(player ==null){
+            throw new IllegalArgumentException(" player is null");
+        }
+      if (!this.isValid(c)){
+          throw new IllegalArgumentException("Coord is invalid");
       }
       if (this.board[c.x()][c.y()] != TileType.EMPTY){
           throw new IllegalArgumentException("This location is already occupied");
