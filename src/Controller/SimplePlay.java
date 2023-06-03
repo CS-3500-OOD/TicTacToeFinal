@@ -80,7 +80,7 @@ public class SimplePlay implements PlayGame{
 
                 if(player){ //player 1 moves
                     try {
-                        this.model.placeTile(new Coord(list[0], list[1]), TileType.P1);
+                        this.model.placeTile(new Coord(list[0] - 1, list[1] - 1), TileType.P1);
                         gameStat = this.model.isGameOver();
                         player = false;
                     } catch (IllegalArgumentException e){
@@ -90,7 +90,7 @@ public class SimplePlay implements PlayGame{
                 }
                 else{ //player 2 moves
                     try {
-                        this.model.placeTile(new Coord(list[0], list[1]), TileType.P2);
+                        this.model.placeTile(new Coord(list[0] - 1, list[1] - 1), TileType.P2);
                         gameStat = this.model.isGameOver();
                         player = true;
                     } catch (IllegalArgumentException e){
@@ -105,6 +105,7 @@ public class SimplePlay implements PlayGame{
                     return; // end the method
                 }
 
+                view.displayMessage("\n");
                 view.displayBoard();
                 list = new int[2];
 
