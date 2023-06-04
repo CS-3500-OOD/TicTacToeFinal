@@ -31,25 +31,25 @@ public class TicTacToeModel implements TicTacToeInteractions{
 
     @Override
     public GameStatus isGameOver() {
-        if(didPlayerWin(TileType.P1)){
+        if (didPlayerWin(TileType.P1)) {
             return GameStatus.P1WINS;
-        }
-        else if (didPlayerWin(TileType.P2)){
+        } else if (didPlayerWin(TileType.P2)) {
             return GameStatus.P2WINS;
+        } else {
+            return GameStatus.NoWINNER;
         }
-        else {return GameStatus.NoWINNER;}
     }
 
     @Override
     public TileType getTileAt(Coord location) {
-        if (!this.isValid(location)){
+        if (!this.isValid(location)) {
             throw new IllegalArgumentException("Invalid Location");
         }
         return board[location.x()][location.y()];
     }
 
     private boolean isValid(Coord location) {
-        return location.x() >= 0 && location.x() <= 2 && location.y() >= 0 && location.y() <=2;
+        return location.x() >= 0 && location.x() <= 2 && location.y() >= 0 && location.y() <= 2;
 
     }
 
@@ -59,7 +59,7 @@ public class TicTacToeModel implements TicTacToeInteractions{
     }
 
 
-    private boolean didPlayerWin(TileType current){
+    private boolean didPlayerWin(TileType current) {
         // Check rows
         for (int row = 0; row < 3; row++) {
             if (board[row][0] == current && board[row][1] == current && board[row][2] == current) {

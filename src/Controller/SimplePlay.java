@@ -17,6 +17,8 @@ public class SimplePlay implements PlayGame{
 
     private GameStatus gameStat;
 
+    private boolean player = true;
+
     public SimplePlay(DisplayGame view, TicTacToeInteractions model, Readable read){
 
         if (model == null || view == null || read == null) {
@@ -55,7 +57,7 @@ public class SimplePlay implements PlayGame{
 
     private void playGameHelper(Scanner scan, int[] list) throws IllegalStateException {
         int count = 0; // which count are we on
-        boolean player = true; // true means player 1
+        player = true; // true means player 1
         while (scan.hasNext()) {
 
             String next = scan.next();
@@ -78,26 +80,28 @@ public class SimplePlay implements PlayGame{
                 list[count] = Integer.parseInt(next);
                 count = 0;
 
-                if(player){ //player 1 moves
-                    try {
-                        this.model.placeTile(new Coord(list[0] - 1, list[1] - 1), TileType.P1);
-                        gameStat = this.model.isGameOver();
-                        player = false;
-                    } catch (IllegalArgumentException e){
-                        view.displayMessage("Invalid input, Player 1 please try again. Reason it was invalid: \n"
-                                + e.getMessage());
-                    }
-                }
-                else{ //player 2 moves
-                    try {
-                        this.model.placeTile(new Coord(list[0] - 1, list[1] - 1), TileType.P2);
-                        gameStat = this.model.isGameOver();
-                        player = true;
-                    } catch (IllegalArgumentException e){
-                        view.displayMessage("Invalid input, Player 2 please try again. Reason it was invalid: \n"
-                                + e.getMessage());
-                    }
-                }
+                //TODO: Extract to exception helper
+                this.processMove(list);
+//                if(player){ //player 1 moves
+//                    try {
+//                        this.model.placeTile(new Coord(list[0] - 1, list[1] - 1), TileType.P1);
+//                        gameStat = this.model.isGameOver();
+//                        player = false;
+//                    } catch (IllegalArgumentException e){
+//                        view.displayMessage("Invalid input, Player 1 please try again. Reason it was invalid: \n"
+//                                + e.getMessage());
+//                    }
+//                }
+//                else{ //player 2 moves
+//                    try {
+//                        this.model.placeTile(new Coord(list[0] - 1, list[1] - 1), TileType.P2);
+//                        gameStat = this.model.isGameOver();
+//                        player = true;
+//                    } catch (IllegalArgumentException e){
+//                        view.displayMessage("Invalid input, Player 2 please try again. Reason it was invalid: \n"
+//                                + e.getMessage());
+//                    }
+//                }
 
 
                 if(gameStat != GameStatus.NoWINNER){
@@ -146,4 +150,22 @@ public class SimplePlay implements PlayGame{
             return false;
         }
     }
+
+    private void processMove(int[] inputs){
+        String format = "2";
+        if (player){
+            format = "1";
+        }
+        try {
+            this.model.placeTile(new Coord(inputs[0] - 1, inputs[1] - 1), TileType.P2);//TODO: BUG!!!! Indexes are
+            //flipped
+            gameStat = this.model.isGameOver();
+            player = !player; //TODO: BUG!!!! player should be switched
+        } catch (IllegalArgumentException e){
+            view.displayMessage("Invalid input, Player" + format + "please try again. Reason it was invalid: \n"
+                    + e.getMessage());
+        }
+    }
 }
+
+

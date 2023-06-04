@@ -13,6 +13,8 @@ import java.util.Objects;
  * Appendable is destination of the output as text
  * Model is read-only interface.
  */
+
+
 public class TextView implements DisplayGame {
 
     private final Appendable output;
@@ -31,7 +33,7 @@ public class TextView implements DisplayGame {
 
         for(int i = 0; i < sizeOfBoard; i++) {
             for(int j = 0; j < sizeOfBoard; j++) {
-                build.append(this.model.getTileAt(new Coord(i,j)).toString());
+                build.append(this.model.getTileAt(new Coord(j,i)).toString()); //TODO: BUG Trickery here
                 if(j != (sizeOfBoard -1)) {
                     build.append(" ");
                 }
@@ -42,7 +44,7 @@ public class TextView implements DisplayGame {
 
         }
 
-        this.displayMessage(build.toString());
+        this.displayMessage(build + "\n");
     }
 
     @Override
